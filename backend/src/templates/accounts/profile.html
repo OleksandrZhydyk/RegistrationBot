@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="container rounded mt-5 mb-5">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="d-flex flex-column align-items-center text-center "><img
+                            class="rounded-circle"
+                            width="262px"
+                            src="{{profile.photo.url}}"
+                            alt="avatar">
+                        <p class="fs-4 text">Avatar</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Profile</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Username</label>
+                                <input type="text" name="username" class="form-control" value="{{user.username}}"/>
+
+                            </div>
+                            <div class="col-md-6"><label class="labels">Telegram username</label>
+                                <input type="text" name="t_username" class="form-control"
+                                       value="{{profile.t_username}}"/>
+
+                            </div>
+                        </div>
+                        <div class="row ">
+
+                            <div class="col-md-12 mt-2"><label class="labels">Telegram id</label>
+                                <input type="text" name="t_user_id" class="form-control" value="{{profile.t_user_id}}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
