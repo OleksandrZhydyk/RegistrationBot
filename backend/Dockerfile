@@ -16,8 +16,6 @@ RUN python -m pip install --upgrade pip
 RUN pip install pipenv
 RUN pipenv install --system --deploy
 
-# RUN chmod a+x ./start.sh
+RUN chmod a+x ./start.sh
 
-CMD ["python", "src/manage.py", "migrate"]
-CMD ["python", "src/manage.py", "collectstatic", "--noinput"]
-CMD ["python", "src/manage.py", "runserver", "0:8000"]
+CMD ["bash"]
