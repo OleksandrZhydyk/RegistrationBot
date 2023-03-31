@@ -6,7 +6,7 @@ RUN mkdir "backend"
 
 WORKDIR backend
 
-# COPY ./start.sh ./start.sh
+COPY ./start.sh ./start.sh
 COPY ./src ./src
 COPY ./Pipfile ./Pipfile
 COPY ./Pipfile.lock ./Pipfile.lock
