@@ -78,11 +78,8 @@ async def registration(message: types.Message, data: dict):
         photo_obj = await get_user_photo(message.from_user.id)
         res = await send_data.fill_profile(username, user_data, photo_obj)
         if res['profile_update']:
-            res = await send_data.login(username, password)
-            if res['login']:
-                return True
-            return "Login failed"
-        return "Profile was not updated"
+            return True
+        return "Profile was not created"
     return "Registration error"
 
 
@@ -97,10 +94,10 @@ async def get_password_confirmation(message: types.Message, state: FSMContext):
                 await state.finish()
                 if res is True:
                     keyboard = types.InlineKeyboardMarkup()
-                    button = types.InlineKeyboardButton('View profile',
-                                                        url=f"{conf_bot.HOST}/profile/{data['username']}")
+                    button = types.InlineKeyboardButton('Login',
+                                                        url=f"{conf_bot.HOST}/login")
                     keyboard.add(button)
-                    return await message.answer("Click button to see your profile", reply_markup=keyboard)
+                    return await message.answer("Click button to login", reply_markup=keyboard)
                 return await message.answer(res)
             return await message.answer("Confirmation password doesn't equal the password")
 

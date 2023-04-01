@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .forms import RegistrationForm, ProfileForm, LoginForm
 from . models import Profile
@@ -62,17 +63,28 @@ def update_profile(request, username):
 
 def login_user(request):
     if request.method == "POST":
-        data = json.loads(request.body.decode())
-        form = LoginForm(request, data)
+        form = LoginForm(request, request.POST)
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             if user:
-                login(request, user)
-                return JsonResponse({'login': True})
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect("profile", username)
             else:
-                return JsonResponse({'login': False})
+                return render(
+                    request=request,
+                    template_name="accounts/login.html",
+                    context={"form": form, "message": "Invalid username or password"},
+                )
+        else:
+            return render(
+                request=request,
+                template_name="accounts/login.html",
+                context={"form": form, "message": "Invalid username or password"},
+            )
+    form = LoginForm()
+    return render(request=request, template_name="accounts/login.html", context={"form": form})
 
 
 @login_required

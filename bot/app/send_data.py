@@ -50,12 +50,3 @@ async def fill_profile(username: str, user_data: dict, photo_obj):
             if response.status != 200:
                 return None
             return await response.json()
-
-
-async def login(username, password):
-    async with aiohttp.ClientSession() as session:
-        data = {'username': username, 'password': password}
-        async with session.post(f"{conf_bot.BACKEND_HOST}/login", json=data) as response:
-            if response.status == 200:
-                return await response.json()
-            return None

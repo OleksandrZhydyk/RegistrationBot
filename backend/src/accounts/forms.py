@@ -21,3 +21,12 @@ class LoginForm(AuthenticationForm):
     class Meta:
         model = get_user_model()
         fields = ("username", "password")
+
+    username = forms.CharField(
+        label="", widget=forms.TextInput(attrs={"class": "form-control form-control",
+                                                "placeholder": "username", "type": "text"})
+    )
+    password = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(attrs={"class": "form-control form-control", "placeholder": "password"}),
+    )

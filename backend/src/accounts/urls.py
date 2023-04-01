@@ -9,6 +9,6 @@ urlpatterns = [
     path("username_exist/<str:username>", check_username_exist),
     path("register", csrf_exempt(registration)),
     path("update_profile/<str:username>", csrf_exempt(update_profile)),
-    path("login", csrf_exempt(login_user)),
-    path("profile/<str:username>", get_profile)
+    path("login", login_user),
+    path("profile/<str:username>", get_profile, name="profile")
 ]
