@@ -5,9 +5,9 @@ services:
     build: ./backend
     container_name: backend
     command:
-      - ./backend/start.sh
+      - ./start.sh
     ports:
-      - 8000:8010
+      - 8008:8010
     volumes:
       - ./backend/src/media:/backend/src/media
       - ./backend/src:/backend/src
@@ -18,10 +18,28 @@ services:
     build: ./bot
     container_name: bot
     ports:
-      - 443:443
+      - 445:443
     volumes:
       - ./bot/app:/bot/app
     env_file:
       - ./bot/.env
     depends_on:
       - backend
+
+  nginx:
+    image: nginx
+    volumes:
+      - static_content:/backend/src/staticfiles/
+      - media_content:/backend/src/media/
+      - ./src/media:/backend/src/media
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - backend
+
+
+volumes:
+  static_content: { }
+  media_content: { }
