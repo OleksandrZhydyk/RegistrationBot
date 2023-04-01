@@ -9,8 +9,9 @@ services:
     ports:
       - 8008:8010
     volumes:
-      - ./backend/src/media:/backend/src/media
       - ./backend/src:/backend/src
+      - static_content:/backend/src/staticfiles/
+      - media_content:/backend/src/media/
     env_file:
       - ./backend/.env
 
@@ -31,7 +32,6 @@ services:
     volumes:
       - static_content:/backend/src/staticfiles/
       - media_content:/backend/src/media/
-      - ./src/media:/backend/src/media
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - 80:80
