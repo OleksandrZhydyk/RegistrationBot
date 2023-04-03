@@ -14,7 +14,7 @@ class RegistrationForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ("t_user_id", "t_username", "photo")
+        fields = ("t_user_id", "t_username", "t_first_name", "photo")
 
 
 class LoginForm(AuthenticationForm):

@@ -13,7 +13,7 @@
                             width="262px"
                             src="{{profile.photo.url}}"
                             alt="avatar">
-                        <p class="fs-4 text">Avatar</p>
+                        <h4 class="text-center">{{profile.t_first_name}}</h4>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -24,17 +24,17 @@
                         <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">Username</label>
                                 <input type="text" name="username" class="form-control" value="{{user.username}}"/>
-
                             </div>
                             <div class="col-md-6"><label class="labels">Telegram username</label>
                                 <input type="text" name="t_username" class="form-control"
                                        value="{{profile.t_username}}"/>
-
                             </div>
                         </div>
-                        <div class="row ">
-
-                            <div class="col-md-12 mt-2"><label class="labels">Telegram id</label>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">First name</label>
+                                <input type="text" name="t_first_name" class="form-control" value="{{profile.t_first_name}}"/>
+                            </div>
+                            <div class="col-md-6"><label class="labels">Telegram id</label>
                                 <input type="text" name="t_user_id" class="form-control" value="{{profile.t_user_id}}"/>
                             </div>
                         </div>

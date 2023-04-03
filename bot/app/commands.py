@@ -46,11 +46,10 @@ async def get_username(message: types.Message, state: FSMContext):
 @dp.message_handler(state=AuthStates.password)
 async def get_password(message: types.Message, state: FSMContext):
     if message.text:
-        if not check_password(message.text):
-            return await message.answer(messages.PASSWORD_ADVISE)
         async with state.proxy() as data:
-            if data['username'] in message.text:
-                return await message.answer("Password shouldn't be similar to username")
+            username = data['username']
+            if not check_password(message.text, username):
+                return await message.answer(messages.PASSWORD_ADVISE)
             data.update({'password': message.text})
         await AuthStates.next()
         await message.answer("Please confirm the password")
@@ -73,7 +72,8 @@ async def registration(message: types.Message, data: dict):
     if res['registration']:
         user_data = {
                      't_user_id': message.from_user.id,
-                     't_username': message.from_user.username,
+                     't_first_name': message.from_user.first_name,
+                     't_username': message.from_user.get('username', "No username"),
                      }
         photo_obj = await get_user_photo(message.from_user.id)
         res = await send_data.fill_profile(username, user_data, photo_obj)
